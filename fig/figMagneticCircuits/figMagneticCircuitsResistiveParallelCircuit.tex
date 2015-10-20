@@ -1,0 +1,50 @@
+\documentclass[b5paper]{standalone}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\usepackage{tikz}
+\usepackage{ifthen}   
+\usepackage{amsmath}
+\usetikzlibrary{calc}
+
+\usetikzlibrary{circuits.ee.IEC}
+%
+\setmainlanguage{english}
+\setotherlanguages{arabic}
+\newfontfamily\arabicfont[Scale=1.0,Script=Arabic]{Scheherazade}
+\newfontfamily\urdufont[Scale=1.0,Script=Arabic]{XB Tabriz}
+
+\begin{document}
+\begin{urdufont}
+\begin{tikzpicture}[circuit ee IEC]
+%grid 
+%\draw[gray,thick] (0,0) grid (12,3);
+%
+\begin{scope}[shift={(0,0)}]
+\draw (0,0)--(2.4,0) node[below,pos=0.5]{ب} to [resistor={info=south:{$R_t$}}] (2.4,2) to  (0,2) to [battery={info=south:{$v$}}] (0,0); 
+%loop
+\draw[latex-] ([shift=(0:0.7cm)]1.2,1) arc (0:180:0.7cm);
+\node at  (1.2,1){$i_t$};
+\end{scope}
+%
+\begin{scope}[shift={(7.5,0)}]
+\draw (0,0)--(3,0) node[below,pos=0.5]{الف} to [resistor={info=south:{$R_2$}}] (3,2) to  (0,2) to [battery={info=south:{$v$}}] (0,0); 
+\draw (2,2) to [resistor={info={$R_1$}}] (2,0);
+%currents
+\draw[-latex] (1.8,1.9)--++(0,-0.35)node[pos=0.5,left]{$i_1$};
+\draw[-latex] (2.8,1.9)--++(0,-0.35)node[pos=0.5,left]{$i_2$};
+\draw[-latex](0.5,2.2)--++(0.35,0)node[pos=0.5,above]{$i_t$};
+\end{scope}
+%equations
+\draw (3.5,1.1) node[above,right]{$
+\begin{aligned}
+\frac{1}{R_t}&=\frac{1}{R_1}+\frac{1}{R_2}\\
+i_1&=\frac{v}{R_1}\\
+i_2&=\frac{v}{R_2}
+\end{aligned}
+$};
+
+\end{tikzpicture}
+\end{urdufont}
+\end{document}
+%---------------------
+
