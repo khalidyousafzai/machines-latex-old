@@ -32,8 +32,7 @@
 
 \pgfmathsetmacro{\leg}{0.5*(\h-2*\s-\hm)}
 
-\pgfmathsetmacro{\shiftX}{6cm}
-\pgfmathsetmacro{\shiftY}{\h cm -\leg cm}
+
 %\pgfmathsetmacro{\thetaStart}{0} 
 %\pgfmathsetmacro{\thetaEnd}{180}
 
@@ -90,8 +89,6 @@
 \draw[gray](d)++(0.15,-0.2) node{$x$};
 \draw[gray,thick](d)++(0,-0.25)--++(0,-0.25);
 \draw[gray,->]($(d)!0.5!(i)$)--++(\x,0);
-\draw[gray,<->]($(am)!0.7!(bm)$)--++(0,-\hm) node[fill=white,pos=0.5]{$h$};
-\draw[gray,<-] ($(aam)!0.8!(bbm)$) to [out=90,in=180] ++(\dx,2*\dy)node[right]{\RL{حرکت کرتا حصہ}};
 %showing gaps-g
 \draw[gray,dashed](d)++(-0.1,0)--++(-0.3,0)coordinate[pos=0.7] (gapArrowUpper);
 \draw[gray,dashed](d)++(\x,-\s)++(-0.1,0)--++(-0.3-\x,0);
@@ -102,7 +99,6 @@
 \draw[gray,dashed](i)++(\x,\s)++(-0.1,0)--++(-0.3-\x,0);
 \draw[gray,<-](gapArrowLower)--++(0,-0.2);
 \draw[gray,<-](gapArrowLower)++(0,\s)--++(0,0.2)--++(-0.2,0)node[left]{$g$};
-\draw[gray] node at (\w/2,-\t) {$h \gg g$};
 %COIL
 %left leg coil.  drawn from top to bottom
 %coil step
@@ -119,26 +115,13 @@
 \draw (\leftEdge,{\coilTop-\stepHL/2-\y*\stepHL}) to [out=-135,in=45] (\rightEdge,{\coilTop-\stepHL/2-\y*\stepHL-\stepHL});
 } 
 %left hand terminals
-\draw (\leftEdge+\t/4,\coilTop) to [short,-o,i_<={$i$}]++(-2.25*\t,0) node(TA){};
-\draw (\leftEdge,\coilTop-\nL*\stepHL+0.5*\stepHL) to [short,-o]++(-2*\t,0)node(TB){};
+\draw (\leftEdge+\t/4,\coilTop)--++(-1.25*\t,0) node(TA){};
+\draw (\leftEdge,\coilTop-\nL*\stepHL+0.5*\stepHL)--++(-1*\t,0)node(TB){};
 \node at ($(TA)!0.5!(TB)$){$\begin{aligned}&+\\ e&,\lambda\\&-   \end{aligned}$};
 %=================================
 %right hand figure
-\begin{scope}[xshift=\shiftX,yshift=\shiftY]
-%flux
-\path[fill=gray](0,\t)--++(0,-\t/2) to [out=-90,in=90] ++(\x,-\t/2-\s) --++(0,-\hm) to [out=-90,in=90] ++(-\x,-\s-\t/2)--++(0,-\t/2)--++(\t,0)--++(0,\t+\t+\hm+\s+\s)--cycle;
-%upper and lower leg's portions
-\draw (0,\t)--++(0,-\t)--++(\t,0)--++(0,\t);
-\draw (0,-\s-\hm-\s-\t)--++(0,\t)--++(\t,0)--++(0,-\t);
-%plunger itself
-\draw(0,-\s)++(\x,0)--++(\wm,0)--++(0,-\hm)--++(-\wm,0)--cycle;
-%text
-\node[gray,left] at (-0.5*\wm,-\hm){\RL{مقناطیسی بہاو}};
-\draw[gray,->] (-0.5*\wm,-\hm) to [out=0,in=-135] (0.13,0.13);
-%
-\draw[gray,<-](\x,-\s-\hm/2)--++(-\t/3,0);
-\draw[gray,<-](\t,-\s-\hm/2)--++(\t/3,0)--++(\t/2,\t)--++(\t/2,0) node[right]{$(b-x)$};
-\end{scope}
+
+
 %
 \end{tikzpicture}
 \end{urdufont}
