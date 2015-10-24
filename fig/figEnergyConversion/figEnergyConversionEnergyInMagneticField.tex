@@ -29,19 +29,21 @@
 %
 \draw[gray](0,0)--(5,0)node[ right]{$x$};
 \draw[gray](0,0)--(0,3)node[above]{$\lambda$};
-\draw[->] (0,0) to [out=30,in=180] (0.6,1);
-\draw (0.6,1) to [out=0,in=120] (2,1.5) to [out=-60,in=-130](3,2.5) ;
-\draw[->](0,0)--(1.5,0)node[below]{\RL{دوسرا راستہ}};
+%ACTUAL PATH
+\draw[thick,->] (0,0) to [out=30,in=180] (0.6,1);
+\draw[thick] (0.6,1) to [out=0,in=120] (2,1.5) to [out=-60,in=-130](3,2.5) ;
+%EASY PATHS
+\draw[->](0,0)--(1.5,0)node[gray,below]{\RL{پہلا راستہ}};
 \draw(1.5,0)--(3,0)node[below]{$x_0$};
-\draw[->](3,0)--(3,1.25)node[right]{\RL{تیسرا راستہ}};
+\draw[->](3,0)--(3,1.25)node[gray,right]{\RL{دوسرا راستہ}};
 \draw(3,1.25)--(3,2.5) node [above]{$W_m(x_0,\lambda_0)$};
-\node[rotate=30] at (1,1.5){\RL{پہلا راستہ}};
+\node[gray,rotate=30] at (1,1.5){\RL{اصل راستہ}};
 \draw[gray,dashed](3,2.5)--(0,2.5);
 \node[left] at (0,2.5){$\lambda_0$};
 %text
-\node[above] at (-1,1){\RL{ابتدائی نقطہ}};
+\node[gray,above] at (-1,1){\RL{ابتدائی نقطہ}};
 \draw[gray,<-](0,0) to [out=170,in=-90] (-1,1);
-\node[above] at (4.5,2){\RL{اختتامی  نقطہ}};
+\node[gray,above] at (4.5,2){\RL{اختتامی  نقطہ}};
 \draw[gray,<-](3.1,2.5) to [out=0,in=150] (3.7,2.4);
 %
 \end{tikzpicture}
