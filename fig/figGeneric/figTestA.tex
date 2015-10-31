@@ -1,0 +1,31 @@
+\documentclass[12pt,b5paper]{standalone}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\usepackage{circuitikz}
+\usepackage{ifthen}   
+\usepackage{amsmath}
+\usetikzlibrary{calc}
+%
+\setmainlanguage{english}
+\setotherlanguages{arabic}
+\newfontfamily\arabicfont[Scale=1.0,Script=Arabic]{Scheherazade}
+\newfontfamily\urdufont[Scale=1.0,Script=Arabic]{XB Tabriz}
+
+\input{figRotatingMachPrinciplesLibrary.tex}
+
+\begin{document}
+\begin{urdufont}
+\begin{tikzpicture}
+%STATOR
+\newcommand{\statorK}[2]{
+\draw([shift={(#1+\delTheta/2:\sRi)}]0,0) arc (#1+\delTheta/2:#2-\delTheta/2:\sRi);
+\draw(#1-\delTheta/2:\sRi)--++(#1-\delTheta/2:\delR) arc (#1-\delTheta/2:#1+\delTheta/2:\sRi+\delR)--(#1+\delTheta/2:\sRi); }
+%
+\foreach \thetaS/\thetaE in {90/180, 180/270,270/360,0/90}{
+\statorK{\thetaS}{\thetaE} }
+
+\end{tikzpicture}
+\end{urdufont}
+\end{document}
+%---------------------
+
