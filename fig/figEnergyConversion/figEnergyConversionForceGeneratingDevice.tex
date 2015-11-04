@@ -45,9 +45,9 @@
 \coordinate (kM) at ($(kL) ! 0.5 ! (kR)$);
 
 
-\path[dashed,gray] (0,0)--++(180:\w-0.5*\t)coordinate[pos=0.8](kDashA)--++(90:\h-\t)coordinate[pos=0.1](kDashB)coordinate[pos=0.9](kDashC)--++(0:\w-0.5*\t)coordinate[pos=0.2](kDashD)coordinate[pos=0.9](kDashE) to [out=0,in=90] (kM)--++(-100:\h-2*\t) to [out=-100,in=0] (0,0);
+\path[gray] (0,0)--++(180:\w-0.5*\t)coordinate[pos=0.8](kDashA)--++(90:\h-\t)coordinate[pos=0.1](kDashB)coordinate[pos=0.9](kDashC)--++(0:\w-0.5*\t)coordinate[pos=0.2](kDashD)coordinate[pos=0.9](kDashE) to [out=0,in=90] (kM)--++(-100:\h-2*\t) to [out=-100,in=0] (0,0);
 %
-\draw[gray,dashed](0,0)--(kDashA) to [out=180,in=-90] (kDashB)--(kDashC) to [out=90,in=180](kDashD) --(kDashE) to [out=0,in=90] (kM)--++(-100:\h-2*\t) to [out=-100,in=0] (0,0);
+\draw[gray](0,0)--(kDashA) to [out=180,in=-90] (kDashB)--(kDashC) to [out=90,in=180](kDashD) --(kDashE) to [out=0,in=90] (kM)--++(-100:\h-2*\t) to [out=-100,in=0] (0,0);
 \draw[solid] (0,0) circle (0.5 pt);   %mark centre of pivot
 \draw[-latex]  (kM)++(80:0.1) -- ++(0:1)node[right]{$F_m$};
 %

@@ -1,0 +1,383 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<!--Converted with LaTeX2HTML 96.1-h (September 30, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+
+
+<title>LaTeX and the GNUPLOT Plotting Program </title>
+<meta name="description" content="LaTeX and the GNUPLOT Plotting Program ">
+<meta name="keywords" content="convert">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<link rel="STYLESHEET" href="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/convert.css">
+</head><body lang="EN">
+ <img alt="next" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/next_motif.gif" height="24" width="37" align="BOTTOM"> <img alt="up" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/up_motif_gr.gif" height="24" width="26" align="BOTTOM"> <img alt="previous" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/previous_motif.gif" height="24" width="63" align="BOTTOM">   <br>
+<br> <p>
+</p><p>
+</p><h1 align="CENTER">LaTeX and the GNUPLOT Plotting
+Program </h1>
+<p align="CENTER"><strong>David Kotz <br> <code>David.Kotz@Dartmouth.edu</code></strong></p><p>
+</p><p align="CENTER"><strong>July 3, 1991</strong></p><p>
+</p><p>
+GNUPLOT LaTeX Tutorial Version 3.0
+</p><p>
+</p><h1><a name="SECTION00010000000000000000">Introduction and History</a></h1>
+<p>
+GNUPLOT was originally developed by Colin Kelley and Thomas Williams
+in 1986 to plot functions and data files on a variety of terminals.
+In 1988 and 1989 I created an alternate version, known as GnuTeX,
+that supported a new ``terminal type'' called <tt>latex</tt>, so gnuplot
+would output LaTeX code. The plot could then be included in a
+LaTeX document. I added a number of embellishments, supported only
+by the <tt>latex</tt> terminal, allowing the user to produce
+publication-quality plots.
+</p><p>
+In late 1989 and early 1990 GnuTeX and a number of other GNUPLOT
+variants were merged together into a new release of GNUPLOT, 2.0. This
+includes, among many other improvements, a LaTeX driver derived from
+the one in GnuTeX. Former GnuTeX users are referred to
+Section&nbsp;<a href="http://www.fnal.gov/docs/products/gnuplot/tutorial/convert.html#oldusers">4</a> for information about adapting to GNUPLOT.
+Anyone interested in using GNUPLOT with LaTeX should read the next
+section, a tutorial, and the primary GNUPLOT manual.
+</p><p>
+The reader should note that the LaTeX picture environments output by
+GNUPLOT can be quite large and complicated, and can easily exceed the
+memory capacity of TeX. If an enlarged version of TeX is available,
+it is wise to use it. Otherwise, keep your plots simple and add
+<code>\clearpage</code> to your document where necessary.
+</p><p>
+There is also a new EEPIC driver (<tt>eepic</tt>), intended for use with
+the EEPIC macro package for LaTeX. EEPIC allows for much more
+efficient line-drawing, runs through LaTeX faster, and uses less
+memory.  See Section&nbsp;<a href="http://www.fnal.gov/docs/products/gnuplot/tutorial/convert.html#seepic">3</a> for more information.
+</p><p>
+There is a small package of auxiliary files (makefiles and scripts)
+that I find useful for making LaTeX plots with GNUPLOT. This is
+available for <code>ftp</code> as <code>pub/gnuplot-latex.shar</code> from
+<code>cs.duke.edu</code>. I can mail copies (see the end of this paper for
+information).
+</p><p>
+</p><h1><a name="SECTION00020000000000000000">Using GNUPLOT for LaTeX: a Tutorial</a></h1>
+<p>
+GNUPLOT is by nature an interactive program. Users making plots for
+LaTeX will generally not use GNUPLOT interactively.  Whenever hard
+copy is desired from GNUPLOT, the program need not be run on a
+graphics terminal. In this case the output is directed to a file or
+pipe, then sent to the appropriate output device. For example, output
+from the terminal type <tt>unixplot</tt> may be sent to a program
+interpreting the Unix plotting standard. The terminal types <tt>
+imagen</tt> and <tt>postscript</tt> may be used for output to printers
+understanding those languages. (A shell script (<tt>lasergnu</tt>) is
+supplied with the distribution that will accept a GNUPLOT command or
+input file and send the output to an Imagen or Postscript laser
+printer. This script may have been adapted to your site.) The terminal
+type <tt>fig</tt> outputs FIG code that can be read by the Fig graphics
+program and translated into forms usable in both TeX and
+LaTeX documents.
+</p><p>
+We now ignore the interactive nature of GNUPLOT and provide the input
+to GNUPLOT from a file, <em>i.e.</em>,
+</p><pre>      gnuplot gnu.input</pre>
+In this example, all of the commands to GNUPLOT are contained in the
+file <tt>gnu.input</tt>. Multiple filenames may be supplied to GNUPLOT
+this way, read in the order they are given.  The output (one or more
+plots) may be piped to another program or redirected to a file.
+Usually, however, we direct the output explicitly with an instruction
+to GNUPLOT (the <tt>set output</tt> command). GNUPLOT continues to print
+error messages to the terminal (stderr).
+<p>
+</p><h4><a name="SECTION00020010000000000000">Example 1:</a></h4>
+ Here is a first example, producing a plot for
+this document. The GNUPLOT input file is given below, and the output
+appears as Figure&nbsp;<a href="http://www.fnal.gov/docs/products/gnuplot/tutorial/convert.html#eg1">1</a>. The input file defines the output to be
+in LaTeX, gives a file name for the output, and plots <i>y</i>=<i>sin</i>(<i>x</i>) for
+<i>x</i> on <img alt="tex2html_wrap_inline1574" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img1.gif" align="MIDDLE">. To produce the figure, I simply
+<code>\</code><code>input{eg1}</code> in a <tt>center</tt> environment in a <tt>figure</tt>
+environment. In following examples, I will enclose the figure in a box
+to make it look a little better.
+<p>
+<br><br>
+</p><pre>    set terminal latex
+    set output "eg1.tex"
+    plot [-3.14:3.14] sin(x)</pre>
+<p>
+</p><p><a name="77">&nbsp;</a><a name="eg1">&nbsp;</a><img alt="figure73" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img2.gif" align="BOTTOM"><br>
+<strong>Figure 1:</strong> A first example: <i>y</i>=<i>sin</i>(<i>x</i>)<br>
+</p><p>
+</p><p>
+Note that GNUPLOT has drawn in the axes, labeled the tic marks for us,
+scaled the <i>y</i> axis automatically, and added a key in the
+upper-right-hand corner (this may be moved with the <tt>set key</tt>
+command, and removed with <tt>set nokey</tt>).
+</p><p>
+This is the default line style for the LaTeX driver.  Because of the
+limited picture capabilities of LaTeX, many dots are required to
+approximate drawing a solid line. This may overload the memory of many
+TeX implementations. There are other line types available that draw
+dotted lines and use much less memory. The EEPIC driver draws solid
+lines with much less memory usage.
+</p><p>
+</p><h4><a name="SECTION00020020000000000000">Example 2:</a></h4>
+ Now we will embellish the plot a little with
+some labels.  This input file produces Figure&nbsp;<a href="http://www.fnal.gov/docs/products/gnuplot/tutorial/convert.html#eg2">2</a>.
+<p>
+<br><br>
+</p><pre>    set terminal latex
+    set output "eg2.tex"
+    set size 5/5., 4/3.
+    set format xy "$%g$"
+    set title "This is a plot of $y=sin(x)$"
+    set xlabel "This is the $x$ axis"
+    set ylabel "This is\\the\\$y$ axis"
+    plot [0:6.28] [0:1] sin(x)</pre>
+<p>
+</p><p><a name="217">&nbsp;</a><a name="eg2">&nbsp;</a><img alt="figure207" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img3.gif" align="BOTTOM"><br>
+<strong>Figure 2:</strong> A more fancy example.<br>
+</p><p>
+</p><p>
+We have specified the plot to be 5 inches wide and 4 inches tall with
+the <tt>set size</tt> command. This is the size of the area used by the
+plot, <em>including</em> space for the labels.  In the first example,
+this size was the default 5 inches by 3 inches. By specifying the
+scaling factors of 1 (or 5/5) and 1.3333 (or 4/3), we obtain the
+desired plot size.
+</p><p>
+We have requested that the format used by the <i>x</i>- and <i>y</i>-axis tic
+mark labels be in LaTeX math mode. This makes the labels look a
+little better. The default is <code>set format xy "%g"</code>. The <code>%g</code>
+represents the general-purpose floating point formatting specification
+for the <tt>printf</tt> function in C. Any valid floating-point
+formatting specification, or LaTeX command, is allowed in the
+format.
+</p><p>
+A title for the plot and labels for the axes were set up in the next
+three commands.  Note that they are processed by LaTeX and so may
+have math mode and other symbols in them. The ylabel may have multiple
+lines, delineated with <code>\\</code>.  The ylabel can be moved around with
+optional offset parameters (see <tt>set ylabel</tt> in the GNUPLOT
+manual). Typically, the ylabel needs to be moved to the left to avoid
+interfering with the left-hand side of the plot.  Once these labels
+are set up, they will be used for all subsequent plot commands until
+they are changed. These labels are also supported by the other
+terminal types, but (of course) any LaTeX code in the string will
+not be interpreted. We have also defined the range of both <i>x</i> (now
+<img alt="tex2html_wrap_inline506" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img4.gif" align="MIDDLE">) and <i>y</i> (here [0,1]).
+</p><p>
+So far we have plotted one curve, <img alt="tex2html_wrap_inline512" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img5.gif" align="MIDDLE">, on one plot. In
+GNUPLOT, each <tt>plot</tt> command generates a new plot. If the output
+is to a screen, the screen is cleared. If to a printer, a new page is
+produced. In the <tt>latex</tt> case, a new picture is started. It is not
+likely that LaTeX users will want this to happen, so generally each
+plot has its own input file and is kept in a separate output (<tt>
+.tex</tt>) file for inclusion at different places in the document.
+</p><p>
+</p><h4><a name="SECTION00020030000000000000">Example 3:</a></h4>
+ To place more than one curve on a plot, use one
+<tt>plot</tt> statement and separate the description of each curve by a
+comma. In our next example, we will plot both a function and a data
+file on the same plot. This plot is shown in Figure&nbsp;<a href="http://www.fnal.gov/docs/products/gnuplot/tutorial/convert.html#eg3">3</a>.
+<p>
+<br><br>
+</p><pre>    set terminal latex
+    set output "eg3.tex"
+    set format xy "$%g$"
+    set title "This is another plot"
+    set xlabel "$x$ axis"
+    set ylabel "$y$ axis"
+    set key 15,-10
+    plot x with lines, "eg3.dat" with linespoints</pre>
+<p>
+</p><p><a name="234">&nbsp;</a><a name="eg3">&nbsp;</a><img alt="figure224" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img6.gif" align="BOTTOM"><br>
+<strong>Figure 3:</strong> An example with two curves on the same plot.<br>
+</p><p>
+</p><p>
+Here you will see that the <i>x</i> range was not specified. The <i>x</i> range
+is determined automatically, unless specified by the user.  In
+this case, it is defined by the range of the data file
+<code>"eg3.dat"</code>. The function is plotted over the same range. If no
+data files or <i>x</i> range are supplied, the default range of [-10:10]
+is used. We have also moved the key to a different position.  The
+function <i>y</i>=<i>x</i> is plotted ``with lines'', which is the default plot
+style for functions, and is shown here to illustrate the plot style
+option.  The data file <tt>eg3.dat</tt> is plotted with style <tt>
+linespoints</tt>, a style like <tt>lines</tt> that also plots a symbol at
+each data point.
+</p><p>
+There is a style called <tt>points</tt> that only plots the symbols at
+data points, and another called <tt>dots</tt> that plots a tiny dot for
+each data point.  The <tt>points</tt> and <tt>linespoints</tt> styles
+produce a different point symbol for each curve on the plot (for up to
+twelve symbols, after which they are re-used; see
+Figure&nbsp;<a href="http://www.fnal.gov/docs/products/gnuplot/tutorial/convert.html#linepoint">7</a> for a complete list). The <tt>lines</tt> and <tt>
+linespoints</tt> styles use a different line style for each curve on the
+plot (in this example the dots have different spacing). The
+style <tt>impulses</tt> draws a perpendicular from each point to the
+<i>x</i>-axis. Finally, the <tt>errorbars</tt> style can draw error bars at
+each data point (see the GNUPLOT manual).
+</p><p>
+</p><h4><a name="SECTION00020040000000000000">Example 4:</a></h4>
+ In the above plots of <img alt="tex2html_wrap_inline542" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img7.gif" align="MIDDLE">, it would make
+more sense to label the axis in units of <img alt="tex2html_wrap_inline544" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img8.gif" align="BOTTOM">. The position and
+labels of the tic labels may be specified by the user, with the <tt>
+set xtics</tt> and <tt>set ytics</tt> commands. This is demonstrated by
+the following example, shown in Figure&nbsp;<a href="http://www.fnal.gov/docs/products/gnuplot/tutorial/convert.html#eg4">4</a>.
+<p>
+<br><br>
+</p><pre>    set terminal latex
+    set output "eg4.tex"
+    set format y "$%g$"
+    set format x "$%.2f$"
+    set title "This is $\sin(x)$"
+    set xlabel "This is the $x$ axis"
+    set ylabel "$\sin(x)$"
+    set nokey
+    set xtics -pi, pi/4
+    plot [-pi:pi] [-1:1] sin(x)</pre>
+<p>
+</p><p><a name="255">&nbsp;</a><a name="eg4">&nbsp;</a><img alt="figure241" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img9.gif" align="BOTTOM"><br>
+<strong>Figure 4:</strong> An example of the <tt>set xtics</tt> command.<br>
+</p><p>
+</p><p>
+Since <tt>pi</tt> is a predefined variable in GNUPLOT, we can use it
+anywhere we may use an expression. The <tt>set xtics</tt> command here
+specifies that the tics on the <i>x</i> axis start at <img alt="tex2html_wrap_inline548" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img10.gif" align="MIDDLE"> and increment
+by <img alt="tex2html_wrap_inline550" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img11.gif" align="MIDDLE">. Since no end point is given, the tics continue to the
+right edge. We have also turned off the key, and changed the format to
+restrict the <i>x</i>-axis tic labels to 2 decimal places.
+</p><p>
+With a little more work, the plot can look even better.  Another form
+of this command allows us to specify the label and position of each
+tic individually.  Replacing the above <tt>set xtics</tt> command with
+the following gives us Figure&nbsp;<a href="http://www.fnal.gov/docs/products/gnuplot/tutorial/convert.html#eg5">5</a>. We also make use of the line
+continuation character, the backslash (<code>\</code>), to spread out this
+command for readability.
+</p><p>
+<br><br>
+</p><pre>    set xtics ("$-\pi$" -pi,\
+     "$-\frac{\pi}{2}$" -pi/2,\
+     "0" 0,\
+     "$\frac{\pi}{2}$" pi/2,\
+     "$\pi$" pi)</pre>
+<p>
+</p><p><a name="273">&nbsp;</a><a name="eg5">&nbsp;</a><img alt="figure259" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img12.gif" align="BOTTOM"><br>
+<strong>Figure 5:</strong> A fancy example of the <tt>set xtics</tt> command.<br>
+</p><p></p><h4><a name="SECTION00020050000000000000">Going further:</a></h4>
+ You should now be able to make a variety of
+plots for your LaTeX document. We will present a final example
+without explanation that showcases some of the capabilities of
+GNUPLOT. You may find documentation for the various commands in the
+GNUPLOT manual, though hopefully this example is somewhat
+self-explanatory. This is shown in Figure&nbsp;<a href="http://www.fnal.gov/docs/products/gnuplot/tutorial/convert.html#eg6">6</a>.
+<p>
+<br><br>
+</p><pre>    set terminal latex
+    set output "eg6.tex"
+    set size 3.5/5, 3/3.
+    set format y "$%g$"
+    set format x "$%5.1f\mu$"
+    set title "This is a title"
+    set xlabel "This is the $x$ axis"
+    set ylabel "This is\\a longer\\version\\ of\\the $y$\\ axis"
+    set label "Data" at -5,-5 right
+    set arrow from -5,-5 to -3.3,-6.7
+    set key -4,8
+    set xtic -10,5,10
+    plot [-10:10] [-10:10] "eg3.dat" title "Data File"  with linespoints 1 7,\
+       3*exp(-x*x)+1  title "$3e^{-x^{2}}+1$" with lines 4</pre>
+<p>
+</p><p><a name="287">&nbsp;</a><a name="eg6">&nbsp;</a><img alt="figure277" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img13.gif" align="BOTTOM"><br>
+<strong>Figure 6:</strong> An example of many features.<br>
+</p><p></p><h4><a name="SECTION00020060000000000000">Line and point types:</a></h4>
+ For reference, we show all of the
+line and point types available in Figure&nbsp;<a href="http://www.fnal.gov/docs/products/gnuplot/tutorial/convert.html#linepoint">7</a>.
+<p>
+</p><p><a name="302">&nbsp;</a><a name="linepoint">&nbsp;</a><img alt="figure292" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/img14.gif" align="BOTTOM"><br>
+<strong>Figure 7:</strong> All of the line and point types in the LaTeX driver.<br>
+</p><p></p><h2><a name="SECTION00021000000000000000">Summary -- Use with LaTeX</a></h2>
+<p>
+In summary, to use the LaTeX facilities of GNUPLOT, the first
+command to GNUPLOT should be
+</p><blockquote> terminal latex
+</blockquote>
+and the output of GNUPLOT should be directed to a file, for example,
+<pre>    set output "plot.tex"</pre>
+This may be anything you like but it should have a <tt>.tex</tt> extension,
+of course. Then the size of the plot should be given. For example, the
+command
+<pre>    set size 1,2</pre>
+tells GNUPLOT to use a 5 inch wide by 6 inch high box for the plot.
+The numbers given are <em>scale factors</em>, not the actual size.  The
+default is 5 inches by 3 inches.  This is the size of the complete
+plot, including all labels.
+<p>
+When finished, the file will contain all of the plots you have
+specified (you probably only want one plot per file). This file can
+then be used in a LaTeX document, <em>e.g.</em>,
+</p><p>
+<br><br>
+</p><pre>    \begin {figure}
+      \begin{center}
+        \bogosityincarnate{plot}
+      \end{center}
+    \end {figure}</pre>
+<p>
+This puts the plot into a figure.
+</p><p>
+You will also want to read about the following commands: <tt>set
+title, set xlabel, set ylabel, set key, set label, set xtics, set
+ytics</tt>, and <tt>set clip</tt>.  These are all described in the regular
+GNUPLOT manual.
+</p><p>
+</p><h1><a name="SECTION00030000000000000000">Use with EEPIC</a></h1>
+<p>
+<a name="seepic">&nbsp;</a>
+EEPIC is a macro package extending the picture environment of LaTeX.
+If you have the EPIC or EEPIC macros, and your <tt>dvi</tt> translator
+supports the <em>tpic</em> <code>\special</code>s, then you can save LaTeX\
+memory.  With EEPIC pictures, the <tt>plot.tex</tt> file will be smaller,
+LaTeX will run much faster (and need much less memory), and the <tt>
+dvi</tt> file will be smaller. The quality of the output is about the
+same. If you change the source, you can generate some more interesting
+line styles.
+</p><p>
+To use EEPIC, set GNUPLOT's terminal type to <tt>eepic</tt> instead of
+<tt>latex</tt>, and use GNUPLOT as before. The line styles will change.
+Include the file <tt>plot.tex</tt> in your document as before, along with
+the document style options <tt>[epic,eepic]</tt>.
+</p><p>
+</p><h1><a name="SECTION00040000000000000000">For Former GnuTeX Users</a></h1>
+<p>
+<a name="oldusers">&nbsp;</a>
+</p><p>
+Former GnuTeX users may be pleased with many of the new features
+(many inspired by your suggestions!), but will also find many changes.
+GNUPLOT will <em>not</em> run all GnuTeX input files unchanged.
+Several GnuTeX features were not included in GNUPLOT because they
+were specific to the LaTeX driver. I encourage you to use the newer
+GNUPLOT.  A translator is available that attempts to translate your
+old GnuTeX 1.6 input files into GNUPLOT 3.0 files. You can ftp it
+from <code>cs.duke.edu</code> as <code>dist/sources/gnuplot/gnut2p.tar.Z</code>.
+This file also contains directions and a list of changes from GnuTeX\
+to GNUPLOT.
+</p><p>
+</p><h1><a name="SECTION00050000000000000000">Contact</a></h1>
+<p>
+Please contact me at <code>David.Kotz@Dartmouth.edu</code> with any comments you may
+have on GNUPLOT's LaTeX driver. For general GNUPLOT questions, send
+mail to the GNUPLOT mailing list
+(<code>info-gnuplot@dartmouth.edu</code>).
+</p><p>
+</p><h1><a name="SECTION00060000000000000000">  About this document ... </a></h1>
+<p>
+ <strong>LaTeX and the GNUPLOT Plotting
+Program </strong></p><p>
+This document was generated using the <a href="http://www-dsed.llnl.gov/files/programs/unix/latex2html/manual/"><strong>LaTeX</strong>2<tt>HTML</tt></a> translator Version 96.1-h (September 30, 1996) Copyright © 1993, 1994, 1995, 1996,  <a href="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</a>, Computer Based Learning Unit, University of Leeds. </p><p> The command line arguments were: <br>
+<strong>latex2html</strong> <tt>convert</tt>. </p><p>The translation was initiated by Marc Mengel on Wed Feb  3 11:21:14 CST 1999</p><dl> <dt><a name="50">...Program</a></dt><dd>This document describes GNUPLOT version 3.0. All plots
+in this document were made with that version of GNUPLOT.
+<pre></pre> </dd></dl>
+<hr><img alt="next" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/next_motif.gif" align="BOTTOM"> <img alt="up" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/up_motif_gr.gif" height="24" width="26" align="BOTTOM"> <img alt="previous" src="LaTeX%20and%20the%20GNUPLOT%20Plotting%20Program_files/previous_motif.gif" height="24" width="63" align="BOTTOM">   <br>
+<p></p><address>
+<i>Marc Mengel <br>
+Wed Feb  3 11:21:14 CST 1999</i>
+</address>
+</body></html>

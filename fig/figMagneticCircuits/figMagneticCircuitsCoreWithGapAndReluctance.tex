@@ -1,7 +1,7 @@
 \documentclass[b5paper]{standalone}
 \usepackage{fontspec}
 \usepackage{polyglossia}
-\usepackage{tikz}
+\usepackage{circuitikz}
 \usepackage{ifthen}   
 \usepackage{amsmath}
 \usetikzlibrary{calc}
@@ -42,7 +42,7 @@
 \draw[->](2.2,1.7)node[right]{$l_a$}--++(-0.2,-0.2)--++(0,-0.25);
 \draw[->](2,1)--++(0,0.15);
 %flux
-\draw[gray,dashed](1.1,1.8)--++(0.2,0)--++(0,-\height+\thick)--++(-\width+\thick,0)--++(0,\height-\thick)--++(0.5,0)--cycle;
+\draw[gray](1.1,1.8)--++(0.2,0)--++(0,-\height+\thick)--++(-\width+\thick,0)--++(0,\height-\thick)--++(0.5,0)--cycle;
 %dimensions
 \draw[,<->] (1.1,-0.1)--++(0.4,0)node[below,pos=0.5]{$b$};
 \draw[<->](1.5+0.1,-0.1)--++(0.2,0.2)node [pos=0.4,right]{$w$};

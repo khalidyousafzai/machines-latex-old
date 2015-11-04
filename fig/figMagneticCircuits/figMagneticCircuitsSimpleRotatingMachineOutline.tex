@@ -1,7 +1,7 @@
 \documentclass[b5paper]{standalone}
 \usepackage{fontspec}
 \usepackage{polyglossia}
-\usepackage{tikz}
+\usepackage{circuitikz}
 \usepackage{ifthen}   
 \usepackage{amsmath}
 %\usetikzlibrary{calc}
@@ -49,22 +49,21 @@
 \draw (\x,0.28) to [out=135,in=-45]  (\x-0.2,-0.28);
 }
 %winding end connections
-\draw(0.4,-0.28) to [out=-45,in=-90] (0.5,0)--(0.5,0.6);
+\draw(0.4,-0.28) to [out=-45,in=-90] (0.5,0) to (0.5,0.3) to [short,i_<=$i$](0.5,0.6);
 \draw(-0.6,0.28) --(-0.6,0.6);
-\draw[->] (0.5,0.6)--(0.5,0.4)node[above left]{$i$};
 \draw(0,-0.5)node{$N$};
 %flux upper half
-\draw[gray,dashed](0.9*\delTheta:\radAv) to [out=-70,in=0] (0.4*\delTheta:0.9*\rad);
-\draw[gray,dashed,-<-=0.6] (0.4*\delTheta:0.9*\rad)--(180-0.4*\delTheta:0.9*\rad);
-\draw[gray,dashed][gray,dashed](180-0.4*\delTheta:0.9*\rad) to [out=180,in=-110] (180-0.9*\delTheta:\radAv);
-\draw[gray,dashed,->-=0.5](0.9*\delTheta:\radAv) arc (0.9*\delTheta:180-0.9*\delTheta:\radAv);
+\draw[gray](0.9*\delTheta:\radAv) to [out=-70,in=0] (0.4*\delTheta:0.9*\rad);
+\draw[gray,-<-=0.6] (0.4*\delTheta:0.9*\rad)--(180-0.4*\delTheta:0.9*\rad);
+\draw[gray](180-0.4*\delTheta:0.9*\rad) to [out=180,in=-110] (180-0.9*\delTheta:\radAv);
+\draw[gray,->-=0.5](0.9*\delTheta:\radAv) arc (0.9*\delTheta:180-0.9*\delTheta:\radAv);
 %flux lower half
 \begin{scope}[rotate=180]
 %
-\draw[gray,dashed](0.9*\delTheta:\radAv) to [out=-70,in=0] (0.4*\delTheta:0.9*\rad);
-\draw[gray,dashed,->-=0.43] (0.4*\delTheta:0.9*\rad)--(180-0.4*\delTheta:0.9*\rad);
-\draw[gray,dashed][gray,dashed](180-0.4*\delTheta:0.9*\rad) to [out=180,in=-110] (180-0.9*\delTheta:\radAv);
-\draw[gray,dashed,-<-=0.5](0.9*\delTheta:\radAv) arc (0.9*\delTheta:180-0.9*\delTheta:\radAv);
+\draw[gray](0.9*\delTheta:\radAv) to [out=-70,in=0] (0.4*\delTheta:0.9*\rad);
+\draw[gray,->-=0.43] (0.4*\delTheta:0.9*\rad)--(180-0.4*\delTheta:0.9*\rad);
+\draw[gray](180-0.4*\delTheta:0.9*\rad) to [out=180,in=-110] (180-0.9*\delTheta:\radAv);
+\draw[gray,-<-=0.5](0.9*\delTheta:\radAv) arc (0.9*\delTheta:180-0.9*\delTheta:\radAv);
 \end{scope}
 %urdu
 \draw[gray,<-](-35:\radO) to [out=-35,in=180] (2,-1)node[black][right]{\RL{ساکن حصہ }};

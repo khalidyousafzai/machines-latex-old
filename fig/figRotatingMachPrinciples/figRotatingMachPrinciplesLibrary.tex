@@ -26,6 +26,17 @@
 \draw([shift={(\thetaS+\delSlotTheta/2:\sRi)}]0,0) arc (\thetaS+\delSlotTheta/2:\thetaE-\delSlotTheta/2:\sRi);
 \draw(\thetaS-\delSlotTheta/2:\sRi)--++(\thetaS-\delSlotTheta/2:\delR) arc (\thetaS-\delSlotTheta/2:\thetaS+\delSlotTheta/2:\sRi+\delR)--(\thetaS+\delSlotTheta/2:\sRi); } }
 %===============================
+%===============================
+%STATOR EACH SLOT
+%\stator{comma separated thetaS/thetaE}  % thetaS/thetaE are two consecutive slots
+\newcommand{\statorEach}[1]{
+\draw(0,0) circle (\sRo);
+\foreach \thetaS/\thetaE in {#1}{
+%\pgfmathsetmacro{\thetaS}{360*(\slot-1)/#1+#2}
+%\pgfmathsetmacro{\thetaE}{360*\slot/#1+#2}
+\draw([shift={(\thetaS+\delSlotTheta/2:\sRi)}]0,0) arc (\thetaS+\delSlotTheta/2:\thetaE-\delSlotTheta/2:\sRi);
+\draw(\thetaS-\delSlotTheta/2:\sRi)--++(\thetaS-\delSlotTheta/2:\delR) arc (\thetaS-\delSlotTheta/2:\thetaS+\delSlotTheta/2:\sRi+\delR)--(\thetaS+\delSlotTheta/2:\sRi); } }
+%===============================
 %ROTOR
 %\rotor{#poles}{#tilt angle}   
 \newcommand{\rotor}[2]{
@@ -114,8 +125,50 @@
 \draw (\slotTheta:\sRi+\delR/2)++(-45:2.2pt)--++(135:4.4pt); } }
 %====================================
 %SLOT NAME
-%\slotNAME{comma separated angles/name/NameAtleftORrightOfSlot}
+%\slotName{comma separated angles/name/NameAtleftORrightOfSlot}
 \newcommand{\slotName}[1]{
 \foreach \slotTheta/\slName/\position in {#1}{
 \draw (\slotTheta:\sRi+2*\delR/3)node[\position]{$\slName$}; } }
 %====================================
+%====================================
+%====================================
+%LINEAR FIGURES
+%DOT LINEAR   used with CROSS linear, SLOT segment and SlotTop. it doesnot take angles as input
+%\dotLinear{comma separated x-locations}     %draws the stator as a linear stator.
+\newcommand{\dotLinear}[1]{
+\pgfmathsetmacro{\delSlotX}{3.5}
+\foreach \x in {#1}{
+\draw(\x cm-\delSlotX pt,-\delSlotX pt)--++(0,2*\delSlotX pt)--++(2*\delSlotX pt,0)--++(0,-2*\delSlotX pt);
+\draw (\x,0) circle (2.5pt);
+\draw[fill] (\x,0) circle (1.5pt); }}
+%====================================
+%CROSS LINEAR
+%\crossLinear{comma separated x-locations}
+\newcommand{\crossLinear}[1]{
+\pgfmathsetmacro{\delSlotX}{3.5}
+\foreach \x in {#1}{
+\draw(\x cm-\delSlotX pt,-\delSlotX pt)--++(0,2*\delSlotX pt)--++(2*\delSlotX pt,0)--++(0,-2*\delSlotX pt);
+\draw (\x,0) circle (2.5pt);
+\draw (\x,0)++(45:2.2pt)--++(-135:4.4pt);
+\draw (\x,0)++(-45:2.2pt)--++(135:4.4pt);  }}
+%==================================
+%====================================
+%SLOT SEGMENT
+%\slotSegment{comma separated xStart/xEnd locations}
+\newcommand{\slotSegment}[1]{
+\pgfmathsetmacro{\delSlotX}{3.5}
+\foreach \xStart/\xEnd in {#1}{
+\draw(\xStart cm+\delSlotX pt,-\delSlotX pt) --(\xEnd cm -\delSlotX pt,-\delSlotX pt);
+ }}
+%==================================
+%this is used after \slotSegment to draw the top cover
+\newcommand{\slotTop}[1]{
+\foreach \xStart/\xEnd in {#1}{
+\draw (\xStart cm-\delSlotX pt,-\delSlotX pt)--++(-0.5 cm,0)--++(0,0.5)--++(\xEnd cm-\xStart cm+1 cm +\delSlotX pt,0)--++(0,-0.5)--(\xEnd cm+\delSlotX pt,-\delSlotX pt);
+}}
+%================================
+%MMF jmps
+%\mmf{comma separated xstart/ystart/xend/yend}
+\newcommand{\mmf}[1]{
+\foreach \xstart/\ystart/\xend/\yend in {#1}{
+\draw(\xstart/90,\ystart)--(\xend/90,\ystart)--(\xend/90,\yend);} }

@@ -44,11 +44,11 @@
 \draw[gray,dashed](end)--++(0,-\y,0)--++(-\x,0,0);
 \draw[gray,dashed](end)++(0,-\y,0)--++(0,0,-\z);
 %ACTUAL PATH
-\draw[thick,->](0,0,0) to [out=-30,in=-150] (\x/2,\y/2,\y/3)node[gray,above,rotate=40]{\RL{اصل راستہ}};
+\draw[thick,->](0,0,0) to [out=-30,in=-150] (\x/2,\y/2,\y/3)node[black,above,rotate=40]{\RL{اصل راستہ}};
 \draw[thick] (\x/2,\y/2,\y/3)  to [out=30,in=180] (\x,\y,\z);
 %
 \draw node[right] at (0,4,1.5){$W_m(x_0, \lambda_{10},\lambda_{20})$};
-\draw[gray,dashed,<-]  (\x,\y,\z)++(0.1,0.1,0) to [out=-30,in=180](0,4,1.5);
+\draw[gray,<-]  (\x,\y,\z)++(0.1,0.1,0) to [out=-30,in=180](0,4,1.5);
 %
 \end{tikzpicture}
 \end{urdufont}
